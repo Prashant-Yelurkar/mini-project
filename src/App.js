@@ -1,10 +1,10 @@
-import logo from "./logo.svg";
 import "./App.css";
+import ObjectCard from "./Components/Cards/ObjectCard";
 
 function App() {
   return (
     <div className="App">
-      Helllo <p>Prashant</p>
+      <ObjectCard />
     </div>
   );
 }
