@@ -158,7 +158,7 @@ function App() {
       )}
       {islost && (
         <div className={styles.celebrate}>
-          🎉🎉Congrulation u Lost game by
+          🎉🎉Congratulation you Lost game by
           {gameDataSet.length / 2 - checkedList.length} cards😂😂
         </div>
       )}
