@@ -18,9 +18,13 @@
 
 .show {
   transform: rotateY(180deg);
+  /* animation: clicked 0.1s ease-in-out;
+  -webkit-animation: clicked 0.1s ease-in-out; */
 }
 .checked {
   transform: rotateY(180deg);
+  /* animation: clicked 0.1s ease-in-out;
+  -webkit-animation: clicked 0.1s ease-in-out; */
 }
 
 .flip_card_front,
@@ -47,6 +51,11 @@
   box-shadow: 1px 1px 5px gray;
   cursor: grab;
 }
+img {
+  width: auto;
+  height: 100%;
+  padding: 20px;
+}
 
 .flip_card_back {
   transform: rotateY(180deg);
@@ -54,13 +63,30 @@
   color: white;
 }
 
+@keyframes clicked {
+  0% {
+    transform: scale(0.8);
+    -webkit-transform: scale(0.8);
+    -moz-transform: scale(0.8);
+    -ms-transform: scale(0.8);
+    -o-transform: scale(0.8);
+  }
+  100% {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+  }
+}
 @media (min-width: 600px) {
   .flip_card {
     height: 110px;
   }
 }
+/* 
 @media (min-width: 802px) {
   .flip_card {
     height: 170px;
   }
-}
+} */

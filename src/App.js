@@ -14,7 +14,8 @@ function App() {
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [gameStart, setGameStart] = useState(false);
-
+  const [isWon, setIsWon] = useState(false);
+  const [islost, setIsLost] = useState(false);
   const newGame = () => {
     setFirstChecked("");
     setSecondChecked("");
@@ -26,6 +27,8 @@ function App() {
       setGameOver(true);
     }, 200);
     setCheckedList([]);
+    setIsLost(false);
+    setIsWon(false);
   };
 
   useEffect(() => {
@@ -43,16 +46,27 @@ function App() {
 
   useEffect(() => {
     if (gameStart) {
-      if (time >= 0) {
+      if (time > 0 && !isWon) {
         const timer = setTimeout(() => {
           setTime(time - 1);
         }, 1000);
         return () => {
           clearTimeout(timer);
         };
+      } else {
+        isCompleted();
       }
     }
   }, [time, gameStart]);
+
+  const isCompleted = () => {
+    if (
+      checkedList.length < gameDataSet.length / 2 &&
+      gameDataSet.length != 0
+    ) {
+      setIsLost(true);
+    }
+  };
 
   const handelCheck = (id) => {
     if (!checked && gameStart) {
@@ -89,6 +103,15 @@ function App() {
     }, 500);
   }, [checked]);
 
+  useEffect(() => {
+    if (
+      checkedList.length == gameDataSet.length / 2 &&
+      gameDataSet.length != 0
+    ) {
+      setIsWon(true);
+    }
+  }, [checkedList]);
+
   return (
     <div className={styles.main}>
       <div className={styles.gameArea}>
@@ -103,26 +126,42 @@ function App() {
           )}
         </div>
         {gameStart ? (
-          <div className={styles.gridOuter}>
-            <div className={styles.grid}>
-              {gameDataSet.map((value, index) => {
-                return (
-                  <ObjectCard
-                    clicked={{ first: firstChecked, second: secondChecked }}
-                    checkedList={checkedList}
-                    key={index}
-                    {...value}
-                    onChecked={(id) => handelCheck(id)}
-                  />
-                );
-              })}
+          <>
+            <div className={styles.gridOuter}>
+              <div className={styles.grid}>
+                {gameDataSet.map((value, index) => {
+                  return (
+                    <ObjectCard
+                      clicked={{ first: firstChecked, second: secondChecked }}
+                      checkedList={checkedList}
+                      key={index}
+                      {...value}
+                      onChecked={(id) => handelCheck(id)}
+                    />
+                  );
+                })}
+              </div>
             </div>
-            <button onClick={newGame}>Reset Game</button>
-          </div>
+            <button className={styles.resetBtn} onClick={newGame}>
+              Reset Game
+            </button>
+          </>
         ) : (
           <button onClick={() => setGameStart(!gameStart)}>Start Game</button>
         )}
       </div>
+
+      {isWon && (
+        <div className={styles.celebrate}>
+          🎉🎉Congrulation u won game in {count} turns
+        </div>
+      )}
+      {islost && (
+        <div className={styles.celebrate}>
+          🎉🎉Congrulation u Lost game by
+          {gameDataSet.length / 2 - checkedList.length} cards😂😂
+        </div>
+      )}
     </div>
   );
 }

@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
-
+import React, { useEffect, useState } from "react";
+import { Img } from "react-image";
 import styles from "./objcard.module.css";
 const ObjectCard = (props) => {
-  const { data, onChecked, checkedList, id, clicked } = props;
+  const { data, onChecked, checkedList, id, clicked, icon } = props;
   const [isChecked, setIsChecked] = useState(false);
   const handelFlip = () => {
     if (!checkedList.includes(data)) {
@@ -25,7 +25,7 @@ const ObjectCard = (props) => {
       >
         <div className={styles.flip_card_front}></div>
         <div className={styles.flip_card_back}>
-          <p>{data}</p>
+          <Img src={icon} alt="data" />
         </div>
       </div>
     </div>
