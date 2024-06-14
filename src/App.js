@@ -157,7 +157,7 @@ function App() {
               </div>
             )}
             <button className={styles.resetBtn} onClick={newGame}>
-              {timer == 0 ? " Reset Game" : "New Game"}
+              {time == 0 ? " Reset Game" : "New Game"}
             </button>
           </>
         ) : (
