@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Img } from "react-image";
 import styles from "./objcard.module.css";
 const ObjectCard = (props) => {
-  const { data, onChecked, checkedList, id, clicked, icon } = props;
+  const { data, onChecked, checkedList, id, clicked, icon, isinTime } = props;
   const [isChecked, setIsChecked] = useState(false);
   const handelFlip = () => {
-    if (!checkedList.includes(data)) {
+    if (!checkedList.includes(data) && isinTime != 0) {
       onChecked(id);
     }
   };

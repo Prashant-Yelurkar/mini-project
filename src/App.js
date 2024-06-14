@@ -16,6 +16,7 @@ function App() {
   const [gameStart, setGameStart] = useState(false);
   const [isWon, setIsWon] = useState(false);
   const [islost, setIsLost] = useState(false);
+  const [player, setPlayer] = useState("");
   const newGame = () => {
     setFirstChecked("");
     setSecondChecked("");
@@ -132,6 +133,8 @@ function App() {
                 {gameDataSet.map((value, index) => {
                   return (
                     <ObjectCard
+                      id={index}
+                      isinTime={time}
                       clicked={{ first: firstChecked, second: secondChecked }}
                       checkedList={checkedList}
                       key={index}
@@ -142,26 +145,32 @@ function App() {
                 })}
               </div>
             </div>
+            {isWon && (
+              <div className={styles.celebrate}>
+                🎉🎉Congratulations! {player} You won game in {count} turns
+              </div>
+            )}
+            {islost && (
+              <div className={styles.celebrate}>
+                🎉🎉AYO! {player} You are LOSER! You Lost by
+                {gameDataSet.length / 2 - checkedList.length} cards😂😂
+              </div>
+            )}
             <button className={styles.resetBtn} onClick={newGame}>
-              Reset Game
+              {timer == 0 ? " Reset Game" : "New Game"}
             </button>
           </>
         ) : (
-          <button onClick={() => setGameStart(!gameStart)}>Start Game</button>
+          <div className={styles.inputData}>
+            <input
+              type="text"
+              placeholder="Enter Your Name"
+              onChange={(e) => setPlayer(e.target.value)}
+            />
+            <button onClick={() => setGameStart(!gameStart)}>Start Game</button>
+          </div>
         )}
       </div>
-
-      {isWon && (
-        <div className={styles.celebrate}>
-          🎉🎉Congrulation u won game in {count} turns
-        </div>
-      )}
-      {islost && (
-        <div className={styles.celebrate}>
-          🎉🎉Congratulation you Lost game by
-          {gameDataSet.length / 2 - checkedList.length} cards😂😂
-        </div>
-      )}
     </div>
   );
 }

@@ -33,6 +33,7 @@ export const NumberGame = [
     data: 5,
     icon: icon5,
   },
+
   {
     id: 6,
     data: 6,
